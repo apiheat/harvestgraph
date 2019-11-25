@@ -20,21 +20,21 @@ Please forgive us for some error or issue.
 
 ## Usage
 
-Setup edgerc credentials location
+### Setup edgerc credentials location
 
 ```shell
 > export AKAMAI_EDGERC_SECTION="default"
 > export AKAMAI_EDGERC_CONFIG="~/.edgerc"
 ```
 
- Get available Security Configurations in your account
+### Get available Security Configurations in your account
 
 ```shell
 > export SOURCE_DIR="/tmp"
 > akamai appsec configs --json --edgerc ${AKAMAI_EDGERC_CONFIG} --section ${AKAMAI_EDGERC_SECTION} | jq '[.configurations[] | {configId: .id, configName: .name}]' > ${SOURCE_DIR}/configurations_map.json
 ```
 
-Export Security Configurations version data
+### Export Security Configurations version data
 
 ```shell
 for CONFIGURATION in $(akamai appsec --edgerc ${AKAMAI_EDGERC_CONFIG} --section ${AKAMAI_EDGERC_SECTION} configs)
@@ -43,13 +43,15 @@ do
 done
 ```
 
-Harvest graph or metadata for given Network list or for all
+### Harvest graph or metadata for given Network list or for all
+
+To get one Network list usage graph
 
 ```shell
 # Default output type is JSON. If destination flag is not set, result will be sent to STDOUT
 > export OUTPUT="dot"
 > export DESTINATION="~/myrepo/netlist-usage/"
-./harvestgraph --id 12345_NETWORKLIST --name "Network List" -m ${SOURCE_DIR}/configurations_map.json -s ${SOURCE_DIR}/appsecConfigs -d ${DESTINATION} -o ${OUTPUT}
+> harvestgraph --id 12345_NETWORKLIST --name "Network List" -m ${SOURCE_DIR}/configurations_map.json -s ${SOURCE_DIR}/appsecConfigs -d ${DESTINATION} -o ${OUTPUT}
 ```
 
 To get all Network lists usage graphs
@@ -63,6 +65,20 @@ done
 ```
 
 Bash script for actions below can be found in this repository: `run.sh`
+
+### Create PNG images from graphs
+
+```shell
+> mkdir ${DESTINATION}/images
+> ls -1 ${DESTINATION} | grep '.dot' | tr -d '.dot' | xargs -I % sh -c "dot -Tpng graphs/%.dot > ${DESTINATION}/images/%.png"
+```
+
+### Create simple markdown file with all images
+
+```shell
+> ls -1 ${DESTINATION}/images | tr -d '.png' | xargs -I % sh -c "echo -e $'List ID: __%__\n\n\![%](images/%.png \"%\")\n' >> Network_Lists_Dependencies.md"
+> sed -i 's/\\\!\[/![/g' Network_Lists_Dependencies.md
+```
 
 ## Help
 
