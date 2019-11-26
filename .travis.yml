@@ -1,0 +1,22 @@
+# .travis.yml
+language: go
+go:
+  - 1.13.x
+
+# Only build tags
+if: tag IS present
+
+env:
+  - GO111MODULE=on
+
+install:
+  - go get ./...
+
+# calls goreleaser
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: curl -sL https://git.io/goreleaser | bash
+  on:
+    tags: true
+    condition: $TRAVIS_OS_NAME = linux
