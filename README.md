@@ -1,4 +1,5 @@
-# harvestGraph
+
+# ![harvestGraph](images/harvestgraph_logo.png "harvestGraph")
 
 CLI tools which used to visualize Akamai Network list usage.
 
