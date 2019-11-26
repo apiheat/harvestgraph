@@ -1,0 +1,56 @@
+{
+    "id": "33000_EXAMPLE",
+    "name": "EXAMPLE",
+    "usage": [
+        {
+            "configId": 30727,
+            "configName": "example",
+            "policies": [
+                {
+                    "id": "acn_12345",
+                    "name": "acc_network",
+                    "type": "ipControls",
+                    "action": "allowed"
+                },
+                {
+                    "id": "paa_12345",
+                    "name": "prd_admin_access",
+                    "type": "geoControls",
+                    "action": "blocked"
+                }
+            ],
+            "ratePolicies": [
+                {
+                    "id": 36180,
+                    "name": "pvr_v3"
+                }
+            ],
+            "match_targets": [
+                {
+                    "id": 1643548,
+                    "hostnames": [
+                        "accept-example.nl"
+                    ],
+                    "paths": [
+                        "/*"
+                    ],
+                    "type": "bypass",
+                    "securitypolicyid": "acn_12345"
+                },
+                {
+                    "id": 1643552,
+                    "hostnames": [
+                        "www.example.nl",
+                        "example.nl"
+                    ],
+                    "paths": [
+                        "/admin/*",
+                        "/admin"
+                    ],
+                    "type": "bypass",
+                    "securitypolicyid": "paa_12345"
+                }
+            ]
+        }
+    ]
+}

@@ -80,6 +80,14 @@ Bash script for actions below can be found in this repository: `run.sh`
 > sed -i 's/\\\!\[/![/g' Network_Lists_Dependencies.md
 ```
 
+## Example result
+
+Metadata json file can be found in `example/example.metadata` file.
+
+Graph
+
+![33000_EXAMPLE](example/graphviz.png "33000_EXAMPLE")
+
 ## Help
 
 ```shell
