@@ -121,6 +121,28 @@ GLOBAL OPTIONS:
    --version, -v                                                 print the version
 ```
 
+## Docker image
+
+Docker images is based on Alpine distribution and it has all required CLI/tools to generate dependency graphs.
+
+* Akamai CLI
+* Akamai AppSec CLI
+* Akamai Netlist CLI
+* graphviz CLIs (dot we need to have)
+* harvestgraph binary
+
+### Build
+
+```shell
+> docker build --build-arg harvestgraph_version=${VERSION} . -t docker.pkg.github.com/apiheat/harvestgraph/harvestgraph:${VERSION}
+```
+
+### Run
+
+```shell
+docker run -it -e "AKAMAI_EDGERC_SECTION=default" -v $HOME/.edgerc:/root/.edgerc -v $HOME/project/path:/some_path --rm docker.pkg.github.com/apiheat/harvestgraph/harvestgraph:${VERSION}
+```
+
 ## Development
 
 In order to develop the tool with us do the following:
