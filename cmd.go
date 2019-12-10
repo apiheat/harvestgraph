@@ -29,6 +29,7 @@ func cmdSearch(c *cli.Context) error {
 	}
 
 	for _, config := range configs {
+		var cMap ConfigurationMap
 		log.Printf("Executing search for network list ID %s, Name %s in %s configuration", nlID, c.String("name"), config.ConfigName)
 
 		// found counter triggers for rate policies, match targets, security policies
@@ -39,13 +40,13 @@ func cmdSearch(c *cli.Context) error {
 		cfile := readFileBytes(configPath)
 
 		// Rate Policies search
-		rpFound = ratePolicySearch(nlID, cfile)
+		rpFound = ratePolicySearch(nlID, cfile, &cMap)
 
 		// Match Targets Search
-		mtFound = matchTargetSearch(nlID, cfile)
+		mtFound = matchTargetSearch(nlID, cfile, &cMap)
 
 		// Security Policies Search
-		spFound = securityPolicySearch(nlID, cfile)
+		spFound = securityPolicySearch(nlID, cfile, &cMap)
 
 		if rpFound > 0 || mtFound > 0 || spFound > 0 {
 			cMap.ConfigID = config.ConfigID
