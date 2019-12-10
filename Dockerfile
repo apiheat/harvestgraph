@@ -9,6 +9,7 @@ RUN apk add --no-cache --update openssl \
         libc6-compat \
         libstdc++ \
         wget \
+        curl \
         jq \
         bash \
         nodejs \
@@ -16,7 +17,7 @@ RUN apk add --no-cache --update openssl \
         graphviz \
         font-bitstream-type1 && \
         rm -rf /var/cache/apk/* && \
-    wget --quiet -O /usr/local/bin/akamai https://github.com/akamai/cli/releases/download/1.1.4/akamai-1.1.4-linuxamd64 && \
+    wget --quiet -O /usr/local/bin/akamai "https://github.com/akamai/cli/releases/download/$(curl -sI https://github.com/akamai/cli/releases/latest | grep -Fi 'Location:' | rev | cut -d '/' -f1 | rev | tr -d '\r')/akamai-$(curl -sI https://github.com/akamai/cli/releases/latest | grep -Fi 'Location:' | rev | cut -d '/' -f1 | rev |  tr -d '\r')-linuxamd64" && \
     chmod +x /usr/local/bin/akamai && \
     echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' >> /root/.bashrc
 
