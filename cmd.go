@@ -31,10 +31,8 @@ func cmdSearch(c *cli.Context) error {
 	for _, config := range configs {
 		log.Printf("Executing search for network list ID %s, Name %s in %s configuration", nlID, c.String("name"), config.ConfigName)
 
+		// found counter triggers for rate policies, match targets, security policies
 		var rpFound, mtFound, spFound int
-
-		//cMap used to append all information for Network list usage in one config
-		// cMap := ConfigurationMap{}
 
 		// Read Security Configuration file
 		configPath := fmt.Sprintf("%s/%s.json", c.String("source"), strconv.Itoa(config.ConfigID))

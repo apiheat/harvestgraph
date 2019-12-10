@@ -77,7 +77,6 @@ func networkListSearch(listID, listType, listAction string, ipGeoFirewallNode, s
 
 			cMap.Policies = append(cMap.Policies, spObj)
 			found = true
-			fmt.Println(cMap.Policies)
 		}
 	}
 

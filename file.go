@@ -41,8 +41,6 @@ func readFileBytes(fpath string) []byte {
 		log.Fatal(err)
 	}
 
-	log.Printf("Successfully Opened file %s", fpath)
-
 	// defer the closing of our jsonFile so that we can parse it later on
 	defer jsonFile.Close()
 
