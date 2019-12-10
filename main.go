@@ -10,7 +10,6 @@ import (
 
 var (
 	appName, appVer string
-	cMap            ConfigurationMap
 )
 
 func main() {

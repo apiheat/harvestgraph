@@ -6,7 +6,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func ratePolicySearch(listID string, cfile []byte) int {
+func ratePolicySearch(listID string, cfile []byte, cMap *ConfigurationMap) int {
 	var i int
 
 	// Rate Policies search
@@ -30,7 +30,7 @@ func ratePolicySearch(listID string, cfile []byte) int {
 	return i
 }
 
-func matchTargetSearch(listID string, cfile []byte) int {
+func matchTargetSearch(listID string, cfile []byte, cMap *ConfigurationMap) int {
 	var i int
 
 	// Match Targets Search
@@ -57,7 +57,7 @@ func matchTargetSearch(listID string, cfile []byte) int {
 	return i
 }
 
-func networkListSearch(listID, listType, listAction string, ipGeoFirewallNode, spNode gjson.Result) bool {
+func networkListSearch(listID, listType, listAction string, ipGeoFirewallNode, spNode gjson.Result, cMap *ConfigurationMap) bool {
 	var found bool
 
 	searchString := fmt.Sprintf("%sControls.%sIPNetworkLists", listType, listAction)
@@ -83,7 +83,7 @@ func networkListSearch(listID, listType, listAction string, ipGeoFirewallNode, s
 	return found
 }
 
-func securityPolicySearch(listID string, cfile []byte) int {
+func securityPolicySearch(listID string, cfile []byte, cMap *ConfigurationMap) int {
 	var i int
 
 	for _, name := range gjson.GetBytes(cfile, "securityPolicies").Array() {
@@ -91,12 +91,12 @@ func securityPolicySearch(listID string, cfile []byte) int {
 		ipGeoFirewall := name.Get("ipGeoFirewall")
 
 		// IP
-		ipAllowedFound = networkListSearch(listID, "ip", "allowed", ipGeoFirewall, name)
-		ipBlockedFound = networkListSearch(listID, "ip", "blocked", ipGeoFirewall, name)
+		ipAllowedFound = networkListSearch(listID, "ip", "allowed", ipGeoFirewall, name, cMap)
+		ipBlockedFound = networkListSearch(listID, "ip", "blocked", ipGeoFirewall, name, cMap)
 
 		// Geo
-		geoAllowedFound = networkListSearch(listID, "geo", "allowed", ipGeoFirewall, name)
-		geoBlockedFound = networkListSearch(listID, "geo", "blocked", ipGeoFirewall, name)
+		geoAllowedFound = networkListSearch(listID, "geo", "allowed", ipGeoFirewall, name, cMap)
+		geoBlockedFound = networkListSearch(listID, "geo", "blocked", ipGeoFirewall, name, cMap)
 
 		if ipAllowedFound || ipBlockedFound || geoAllowedFound || geoBlockedFound {
 			i++
