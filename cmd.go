@@ -31,7 +31,7 @@ func cmdSearch(c *cli.Context) error {
 	for _, config := range configs {
 		log.Printf("Executing search for network list ID %s, Name %s in %s configuration", nlID, c.String("name"), config.ConfigName)
 
-		var rpFound, mtFound, spFound bool
+		var rpFound, mtFound, spFound int
 
 		//cMap used to append all information for Network list usage in one config
 		// cMap := ConfigurationMap{}
@@ -49,7 +49,7 @@ func cmdSearch(c *cli.Context) error {
 		// Security Policies Search
 		spFound = securityPolicySearch(nlID, cfile)
 
-		if rpFound || mtFound || spFound {
+		if rpFound > 0 || mtFound > 0 || spFound > 0 {
 			cMap.ConfigID = config.ConfigID
 			cMap.ConfigName = config.ConfigName
 			metadata.Usage = append(metadata.Usage, cMap)
