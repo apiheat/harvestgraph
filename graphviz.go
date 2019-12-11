@@ -133,6 +133,10 @@ func buildGraph(m Metadata) string {
 			}
 
 			labelDataPaths := fmt.Sprintf("{Match Target Paths | %s}", strings.Join(paths, " | "))
+			if mTarget.NegativePathMatch {
+				labelDataPaths = fmt.Sprintf("{Match Target Paths Does Not Match | %s}", strings.Join(paths, " | "))
+			}
+
 			nodeAttrs["label"] = fmt.Sprintf("%q", labelDataPaths)
 
 			pathsNodeName := fmt.Sprintf("%s paths", tName)
