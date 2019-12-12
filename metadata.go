@@ -42,11 +42,12 @@ func matchTargetSearch(listID string, cfile []byte, cMap *ConfigurationMap) int 
 
 			if present != "" {
 				mtObj := MatchTarget{
-					ID:               name.Get("id").Int(),
-					Hostnames:        name.Get("hostnames").Value(),
-					Paths:            name.Get("filePaths").Value(),
-					SecurityPolicyID: name.Get("securityPolicy.policyId").String(),
-					Type:             "bypass",
+					ID:                name.Get("id").Int(),
+					Hostnames:         name.Get("hostnames").Value(),
+					Paths:             name.Get("filePaths").Value(),
+					NegativePathMatch: name.Get("isNegativePathMatch").Bool(),
+					SecurityPolicyID:  name.Get("securityPolicy.policyId").String(),
+					Type:              "bypass",
 				}
 
 				cMap.MatchTargets = append(cMap.MatchTargets, mtObj)

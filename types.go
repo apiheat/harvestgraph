@@ -25,11 +25,12 @@ type RatePolicy struct {
 
 // MatchTarget represents network lists usage in match targets structure
 type MatchTarget struct {
-	ID               int64       `json:"id"`
-	Hostnames        interface{} `json:"hostnames"`
-	Paths            interface{} `json:"paths"`
-	Type             string      `json:"type"`
-	SecurityPolicyID string      `json:"securitypolicyid"`
+	ID                int64       `json:"id"`
+	Hostnames         interface{} `json:"hostnames"`
+	Paths             interface{} `json:"paths"`
+	NegativePathMatch bool        `json:"negative-path-match"`
+	Type              string      `json:"type"`
+	SecurityPolicyID  string      `json:"securitypolicyid"`
 }
 
 // SecurityPolicy represents network lists usage in security policies structure
