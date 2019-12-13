@@ -18,9 +18,9 @@ type ConfigurationMap struct {
 
 // RatePolicy represents network lists usage in rate policies structure
 type RatePolicy struct {
-	ID    int64  `json:"id"`
-	Name  string `json:"name"`
-	Match string `json:"matches,omitempty"`
+	ID        int64  `json:"id"`
+	Name      string `json:"name"`
+	Condition string `json:"condition,omitempty"`
 }
 
 // MatchTarget represents network lists usage in match targets structure
