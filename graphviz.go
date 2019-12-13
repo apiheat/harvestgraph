@@ -153,7 +153,7 @@ func buildGraph(m Metadata) string {
 		for _, rateP := range config.RatePolicies {
 			rpName := fmt.Sprintf("%q", rateP.Name)
 
-			labelData := fmt.Sprintf("{%s | id=%d}", rateP.Name, rateP.ID)
+			labelData := fmt.Sprintf("{%s | id=%d | condition=%s}", rateP.Name, rateP.ID, rateP.Condition)
 			nodeAttrs["label"] = fmt.Sprintf("%q", labelData)
 
 			if err := g.AddNode(gName, rpName, nodeAttrs); err != nil {

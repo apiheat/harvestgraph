@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/tidwall/gjson"
 )
 
@@ -17,9 +16,14 @@ func ratePolicySearch(listID string, cfile []byte, cMap *ConfigurationMap) int {
 		present := nlc.Get(cond).Raw
 
 		if present != "" {
+			condition := "does not match"
+			if nlc.Get("positivematch").Bool() {
+				condition = "match"
+			}
 			rpObj := RatePolicy{
-				ID:   name.Get("id").Int(),
-				Name: name.Get("name").String(),
+				ID:        name.Get("id").Int(),
+				Name:      name.Get("name").String(),
+				Condition: condition,
 			}
 
 			cMap.RatePolicies = append(cMap.RatePolicies, rpObj)
