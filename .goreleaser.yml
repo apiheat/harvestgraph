@@ -10,8 +10,8 @@ builds:
       - linux
     goarch:
       - amd64
-archive:
-  name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
+archives:
+- name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
   replacements:
     darwin: mac
   format: binary
