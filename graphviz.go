@@ -107,10 +107,15 @@ func buildGraph(m Metadata) string {
 			}
 
 			hosts := []string{}
-			for _, hostname := range mTarget.Hostnames.([]interface{}) {
-				hName := fmt.Sprintf("%s", hostname)
 
-				hosts = append(hosts, hName)
+			if mTarget.Hostnames != nil {
+				for _, hostname := range mTarget.Hostnames.([]interface{}) {
+					hName := fmt.Sprintf("%s", hostname)
+
+					hosts = append(hosts, hName)
+				}
+			} else {
+				hosts = append(hosts, "All Hostnames")
 			}
 
 			labelDataHosts := fmt.Sprintf("{Match Target Hostnames | %s}", strings.Join(hosts, " | "))
